@@ -1,11 +1,13 @@
 # Statement Tidy
-I want to be able to conveniently copy/paste details from my bank statements on the HSBC website into a LibreOffice spreadsheet.
+Originally created to enable convenient copy/paste of details from own bank statements on the HSBC website into a LibreOffice spreadsheet.
+However, this is no longer possible as from February 2021 the transactions are no longer available within the website, as statements are now only offered as PDF downloads.
 
-The values are tab-separated, so this works but they each have a descriptive prefix which I don't want (Date, Description, Amount, Balance), e.g. a date is copied as **"Date17 Jan 20"** when I want just **"17 Jan 20"**.
+When they were present the values are were tab-separated but they each had a descriptive prefix which I didn't want (Date, Description, Amount, Balance), e.g. a date is copied as **"Date17 Jan 20"** when I want just **"17 Jan 20"**.
 
-This is a solution to this problem.
+This was a solution to this problem but no longer can be used. Now added:
 
-However, from February 2021 it no longer seems possible to even access these values as there's no longer an option to display the statement values on the web page (only option is PDF download).  Now added `bank_csv_file_to_clipboard.py`as alternative way to get the data by extracting from downloaded csv file.
+- `bank_csv_file_to_clipboard.py`as alternative way to get the data by extracting from downloaded 'midata' csv file.
+- `midata_export.py` as a newer more convenient way of processing the 'midata' file by beaking its contents into its constituent months and then adding the extracted details to the clipboard.
 
 ## statement_tidy.py
 - Written in Python 3 but might work with Python 2
@@ -48,3 +50,9 @@ More convenient way of removing the prefixes that works directly with the clipbo
 ## `bank_csv_gui.py`
 Simple Tkinter GUI which can be used to run `bank_csv_file_to_clipboard.py`.
 Note this lacks any checking for invalid values.
+
+## midata_export.py
+Another way of extracting details from 'midata' csv file.
+
+- Either (a) specify the midata filename near the end of the file or (b) pass the filename as a command-line argument.
+- When run, the details are separated by month, with heading and total for each, and placed all together as comma-separated text in the clipboard from where they can be pasted where you want.

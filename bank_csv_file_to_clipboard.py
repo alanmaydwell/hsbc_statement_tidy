@@ -17,12 +17,15 @@ def csv_read(filename="midata7885.csv", separator=","):
     # encoding value used below to remove "byte order mark" (\ufeff) from file
     with open(filename, "r", encoding='utf-8-sig') as csv_file:
         for row in csv_file:
-            row_values = [r.strip() for r in row.strip().split(separator)]
+            row_values = [r.strip() for r in row.strip().split(separator) if r.strip()]
             if row_values:
                 if not headings:
                     headings = row_values
                 else:
                     values.append(row_values)
+            # Stop at first empty line encountered
+            else:
+                break
     return headings, values
     
 
@@ -34,6 +37,7 @@ def to_date(value, format="%d/%m/%Y"):
         date = time.strptime(value, format)
     except ValueError:
         date = time.strptime("01/01/1900", "%d/%m/%Y")
+        print(f"Invalid date detected: '{value}', Expected format: {format}")
     return date
 
 
